@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% block title %}Customer Dashboard | StayNest{% endblock %}
+{% block content %}
+<h1>Customer Dashboard</h1>
+
+<section class="card">
+    <h2>Find Rooms</h2>
+    <form method="get" class="filter-form">
+        <input type="number" min="1" name="capacity" placeholder="Guests" value="{{ selected_capacity }}">
+        <input type="date" name="check_in_date" value="{{ selected_check_in }}">
+        <input type="date" name="check_out_date" value="{{ selected_check_out }}">
+        <button type="submit" class="btn btn-outline">Filter</button>
+    </form>
+</section>
+
+<section class="card">
+    <h2>Available Rooms</h2>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Room #</th>
+                    <th>Type</th>
+                    <th>Capacity</th>
+                    <th>Price/Night</th>
+                    <th>Book</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for room in rooms %}
+                <tr>
+                    <td>{{ room.room_number }}</td>
+                    <td>{{ room.room_type }}</td>
+                    <td>{{ room.capacity }}</td>
+                    <td>${{ '%.2f'|format(room.price_per_night) }}</td>
+                    <td>
+                        <form method="post" action="{{ url_for('book_room') }}" class="booking-inline-form">
+                            <input type="hidden" name="room_id" value="{{ room.id }}">
+                            <input type="date" name="check_in_date" required>
+                            <input type="date" name="check_out_date" required>
+                            <button class="btn btn-primary" type="submit">Book</button>
+                        </form>
+                    </td>
+                </tr>
+                {% else %}
+                <tr><td colspan="5">No rooms available for selected filter.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<section class="card">
+    <h2>My Bookings</h2>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Room</th>
+                    <th>Dates</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for booking in bookings %}
+                <tr>
+                    <td>#{{ booking.id }}</td>
+                    <td>{{ booking.room_number }} - {{ booking.room_type }}</td>
+                    <td>{{ booking.check_in_date }} to {{ booking.check_out_date }}</td>
+                    <td>${{ '%.2f'|format(booking.total_price) }}</td>
+                    <td><span class="pill {{ booking.status }}">{{ booking.status }}</span></td>
+                    <td>
+                        {% if booking.status == 'booked' %}
+                        <form method="post" action="{{ url_for('cancel_booking', booking_id=booking.id) }}" onsubmit="return confirm('Cancel this booking?')">
+                            <button class="btn btn-danger" type="submit">Cancel</button>
+                        </form>
+                        {% else %}
+                        <span>-</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% else %}
+                <tr><td colspan="6">No bookings yet.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}

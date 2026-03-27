@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% block title %}Admin Dashboard | StayNest{% endblock %}
+{% block content %}
+<h1>Admin Dashboard</h1>
+
+<section class="stats-grid">
+    <div class="card stat"><h3>{{ stats.total_rooms }}</h3><p>Total Rooms</p></div>
+    <div class="card stat"><h3>{{ stats.total_bookings }}</h3><p>Total Bookings</p></div>
+    <div class="card stat"><h3>{{ stats.active_bookings }}</h3><p>Active Bookings</p></div>
+</section>
+
+<section class="grid-two">
+    <article class="card">
+        <h2>Add Room</h2>
+        <form method="post" action="{{ url_for('add_room') }}" class="form-grid">
+            <input type="text" name="room_number" placeholder="Room Number (e.g. A-101)" required>
+            <input type="text" name="room_type" placeholder="Room Type (Deluxe/Suite...)" required>
+            <input type="number" step="0.01" min="1" name="price_per_night" placeholder="Price per night" required>
+            <input type="number" min="1" name="capacity" placeholder="Capacity" required>
+            <button type="submit" class="btn btn-primary">Add Room</button>
+        </form>
+    </article>
+
+    <article class="card">
+        <h2>Rooms</h2>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Room #</th>
+                        <th>Type</th>
+                        <th>Capacity</th>
+                        <th>Price/Night</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for room in rooms %}
+                    <tr>
+                        <td>{{ room.room_number }}</td>
+                        <td>{{ room.room_type }}</td>
+                        <td>{{ room.capacity }}</td>
+                        <td>${{ '%.2f'|format(room.price_per_night) }}</td>
+                        <td>
+                            <form method="post" action="{{ url_for('delete_room', room_id=room.id) }}" onsubmit="return confirm('Delete this room?')">
+                                <button class="btn btn-danger" type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr><td colspan="5">No rooms found.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </article>
+</section>
+
+<section class="card">
+    <h2>All Bookings</h2>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Customer</th>
+                    <th>Room</th>
+                    <th>Dates</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for booking in bookings %}
+                <tr>
+                    <td>#{{ booking.id }}</td>
+                    <td>{{ booking.customer_name }}</td>
+                    <td>{{ booking.room_number }} - {{ booking.room_type }}</td>
+                    <td>{{ booking.check_in_date }} to {{ booking.check_out_date }}</td>
+                    <td>${{ '%.2f'|format(booking.total_price) }}</td>
+                    <td><span class="pill {{ booking.status }}">{{ booking.status }}</span></td>
+                </tr>
+                {% else %}
+                <tr><td colspan="6">No bookings found.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}

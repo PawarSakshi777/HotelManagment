@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Register | StayNest{% endblock %}
+{% block content %}
+<section class="auth-wrap">
+    <form method="post" class="card auth-card">
+        <h2>Create Account</h2>
+        <p>Select your role while registering.</p>
+
+        <label>Full Name</label>
+        <input type="text" name="name" required />
+
+        <label>Email</label>
+        <input type="email" name="email" required />
+
+        <label>Password</label>
+        <input type="password" name="password" minlength="6" required />
+
+        <label>Role</label>
+        <select name="role" required>
+            <option value="customer">Customer/User</option>
+            <option value="admin">Admin</option>
+        </select>
+
+        <button type="submit" class="btn btn-primary full">Register</button>
+        <small>Already have an account? <a href="{{ url_for('login') }}">Login</a></small>
+    </form>
+</section>
+{% endblock %}
