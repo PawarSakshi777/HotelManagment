@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Login | StayNest{% endblock %}
+{% block content %}
+<section class="auth-wrap">
+    <form method="post" class="card auth-card">
+        <h2>Login</h2>
+        <p>Access your dashboard based on your role.</p>
+        <label>Email</label>
+        <input type="email" name="email" required />
+
+        <label>Password</label>
+        <input type="password" name="password" required />
+
+        <button type="submit" class="btn btn-primary full">Login</button>
+        <small>New user? <a href="{{ url_for('register') }}">Register here</a></small>
+    </form>
+</section>
+{% endblock %}

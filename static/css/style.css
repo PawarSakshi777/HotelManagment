@@ -1,0 +1,209 @@
+:root {
+    --bg: #f4f7fb;
+    --text: #1f2937;
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --danger: #dc2626;
+    --card: #ffffff;
+    --border: #e5e7eb;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
+
+.container {
+    width: min(1120px, 92%);
+    margin: 0 auto;
+}
+
+.navbar {
+    background: #0f172a;
+    color: #fff;
+    padding: 14px 0;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+}
+
+.nav-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.brand {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.navbar nav {
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+}
+
+.welcome { opacity: 0.9; font-size: 0.9rem; }
+
+.page-content { padding: 2rem 0 3rem; }
+
+.hero {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 1.5rem;
+    align-items: stretch;
+}
+.hero-single {
+    grid-template-columns: 1fr;
+    max-width: 820px;
+}
+.hero-text h1 { font-size: 2.2rem; margin-bottom: 0.7rem; }
+.hero-text p { line-height: 1.6; }
+
+
+.chip {
+    display: inline-block;
+    background: #dbeafe;
+    color: #1e40af;
+    border-radius: 999px;
+    padding: 0.35rem 0.8rem;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1rem;
+    box-shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
+}
+
+.auth-wrap {
+    display: flex;
+    justify-content: center;
+    padding-top: 2rem;
+}
+
+.auth-card {
+    width: min(450px, 100%);
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+}
+
+input, select, button {
+    font: inherit;
+}
+
+input, select {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.65rem 0.7rem;
+}
+
+.btn {
+    border: none;
+    border-radius: 10px;
+    text-decoration: none;
+    padding: 0.56rem 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-primary:hover { background: var(--primary-dark); }
+.btn-outline { border: 1px solid #94a3b8; color: #0f172a; background: white; }
+.btn-danger { background: var(--danger); color: #fff; }
+.full { width: 100%; margin-top: 0.6rem; }
+
+.alerts { margin-bottom: 1rem; }
+.alert {
+    padding: 0.7rem;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+.alert-success { background: #dcfce7; color: #166534; }
+.alert-danger { background: #fee2e2; color: #991b1b; }
+.alert-warning { background: #fef3c7; color: #92400e; }
+.alert-info { background: #dbeafe; color: #1e3a8a; }
+
+.grid-two {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 1rem;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.stat h3 { margin: 0; font-size: 2rem; color: #1d4ed8; }
+.stat p { margin-bottom: 0; color: #475569; }
+
+.form-grid {
+    display: grid;
+    gap: 0.55rem;
+}
+
+.table-wrap { overflow-x: auto; }
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    padding: 0.7rem 0.5rem;
+    font-size: 0.93rem;
+}
+
+.booking-inline-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 0.4rem;
+    min-width: 350px;
+}
+
+.filter-form {
+    display: grid;
+    grid-template-columns: 0.7fr 1fr 1fr auto;
+    gap: 0.5rem;
+}
+
+.pill {
+    border-radius: 999px;
+    padding: 0.2rem 0.6rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+.pill.booked { background: #dcfce7; color: #166534; }
+.pill.cancelled { background: #fee2e2; color: #991b1b; }
+
+@media (max-width: 920px) {
+    .hero, .grid-two, .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .filter-form, .booking-inline-form {
+        grid-template-columns: 1fr;
+    }
+}
